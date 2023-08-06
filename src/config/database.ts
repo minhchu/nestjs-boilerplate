@@ -34,11 +34,20 @@ export default registerAs('database', () => ({
       sslmode: 'prefer',
     },
     redis: {
-      url: process.env.REDIS_URL,
-      host: process.env.REDIS_HOST || '127.0.0.1',
-      password: process.env.REDIS_PASSWORD || '',
-      port: process.env.REDIS_PORT || '6379',
-      database: process.env.REDIS_DB || '0',
+      default: {
+        url: process.env.REDIS_URL,
+        host: process.env.REDIS_HOST || '127.0.0.1',
+        password: process.env.REDIS_PASSWORD || '',
+        port: process.env.REDIS_PORT || '6379',
+        database: process.env.REDIS_DB || '0',
+      },
+      cache: {
+        url: process.env.REDIS_URL,
+        host: process.env.REDIS_HOST || '127.0.0.1',
+        password: process.env.REDIS_PASSWORD || '',
+        port: process.env.REDIS_PORT || '6379',
+        database: process.env.REDIS_CACHE_DB || '1',
+      },
     },
   },
 }));
