@@ -4,6 +4,7 @@ import { caching } from 'cache-manager';
 import { redisInsStore, redisStore } from 'cache-manager-ioredis-yet';
 import Redis, { RedisOptions } from 'ioredis';
 import { CacheModuleOptions, CacheStore } from './cache.interface';
+import { MODULE_OPTIONS_TOKEN } from './cache.module-definition';
 
 export function cacheProvider(): Provider {
   return {
@@ -21,12 +22,13 @@ export function cacheProvider(): Provider {
           'database.connections.redis.cache.url',
         );
 
-        if (redisUrl !== '') {
+        if (redisUrl !== undefined && redisUrl !== '') {
           const redis = new Redis(redisUrl);
 
           return await caching((c) => redisInsStore(redis, c));
         }
 
+        // TODO: add password. maybe should add a redis.service
         const redisConfig: RedisOptions = {
           host: config.get<string>('database.connections.redis.cache.host'),
           port: config.get<number>('database.connections.redis.cache.port'),
@@ -36,6 +38,6 @@ export function cacheProvider(): Provider {
         return await caching(redisStore, redisConfig);
       }
     },
-    inject: ['CACHE_MODULE_OPTIONS', ConfigService],
+    inject: [MODULE_OPTIONS_TOKEN, ConfigService],
   };
 }

@@ -1,4 +1,3 @@
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Controller, Get, Inject } from '@nestjs/common';
 import { Cache } from 'cache-manager';
 import { FeatureService } from './feature.service';
@@ -7,7 +6,7 @@ import { FeatureService } from './feature.service';
 export class FeatureController {
   constructor(
     private readonly service: FeatureService,
-    @Inject(CACHE_MANAGER) private readonly cache: Cache,
+    @Inject('cache') private readonly cache: Cache,
   ) {}
 
   @Get('/feature')
