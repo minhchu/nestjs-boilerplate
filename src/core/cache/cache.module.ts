@@ -1,10 +1,10 @@
-import { Global, Module } from '@nestjs/common';
-import { CacheModule as DefaultCacheModule } from './cacheModule';
+import { Module } from '@nestjs/common';
+import { CacheModule as DefaultCacheModule } from './cache.default-module';
 
-@Global()
 @Module({
   imports: [
     DefaultCacheModule.register({
+      global: true,
       store: 'redis',
     }),
   ],
