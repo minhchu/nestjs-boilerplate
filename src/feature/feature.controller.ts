@@ -1,5 +1,5 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { Cache } from 'cache-manager';
+import { Cache } from 'src/core/cache';
 import { FeatureService } from './feature.service';
 
 @Controller()
