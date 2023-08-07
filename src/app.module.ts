@@ -4,7 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import cacheConfig from './config/cache';
 import databaseConfig from './config/database';
-import { CacheModule } from './core/cache/cache.module';
+import { CacheModule } from './core/cache';
+import { DatabaseModule } from './core/database';
 import { FeatureModule } from './feature/feature.module';
 
 @Module({
@@ -16,6 +17,7 @@ import { FeatureModule } from './feature/feature.module';
       load: [databaseConfig, cacheConfig],
     }),
     CacheModule,
+    DatabaseModule,
     FeatureModule,
   ],
   controllers: [AppController],

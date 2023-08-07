@@ -5,7 +5,7 @@ export default registerAs('database', () => ({
   connections: {
     sqlite: {
       url: process.env.DATABASE_URL || '',
-      database: process.env.DB_DATABASE || '../../database.sqlite',
+      database: process.env.DB_DATABASE || 'database.sqlite',
     },
     mysql: {
       url: process.env.DATABASE_URL || '',
