@@ -1,13 +1,8 @@
 import { Module } from '@nestjs/common';
-import { CacheModule as DefaultCacheModule } from './cache.default-module';
+import { CacheCoreModule } from './cache-core.module';
 
 @Module({
-  imports: [
-    DefaultCacheModule.register({
-      global: true,
-      store: 'redis',
-    }),
-  ],
-  exports: [DefaultCacheModule],
+  imports: [CacheCoreModule.register({ global: true })],
+  exports: [CacheCoreModule],
 })
 export class CacheModule {}

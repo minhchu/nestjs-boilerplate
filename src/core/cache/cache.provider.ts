@@ -3,21 +3,22 @@ import { ConfigService } from '@nestjs/config';
 import { caching } from 'cache-manager';
 import { redisInsStore, redisStore } from 'cache-manager-ioredis-yet';
 import Redis, { RedisOptions } from 'ioredis';
-import { CacheModuleOptions, CacheStore } from './cache.interface';
-import { MODULE_OPTIONS_TOKEN } from './cache.module-definition';
+import { CacheModuleOptions, CACHE_OPTIONS } from './cache.interface';
 
 export function cacheProvider(): Provider {
   return {
     provide: 'cache',
     useFactory: async (options: CacheModuleOptions, config: ConfigService) => {
-      if (options.store === CacheStore.Memory) {
+      const defaultCacheDriver = config.get<string>('cache.default');
+
+      if (defaultCacheDriver === 'memory') {
         return await caching('memory', {
-          max: options.max,
-          ttl: options.ttl,
+          max: options.max ?? 100,
+          ttl: options.ttl ?? 60000,
         });
       }
 
-      if (options.store === CacheStore.Redis) {
+      if (defaultCacheDriver === 'redis') {
         const redisUrl = config.get<string>(
           'database.connections.redis.cache.url',
         );
@@ -38,6 +39,6 @@ export function cacheProvider(): Provider {
         return await caching(redisStore, redisConfig);
       }
     },
-    inject: [MODULE_OPTIONS_TOKEN, ConfigService],
+    inject: [CACHE_OPTIONS, ConfigService],
   };
 }

@@ -2,6 +2,7 @@ import { ConfigurableModuleBuilder } from '@nestjs/common';
 import { CacheModuleOptions } from './cache.interface';
 
 /**
+ * @deprecated For testing purpose
  * @see [DynamicModule](https://docs.nestjs.com/fundamentals/dynamic-modules#configurable-module-builder)
  */
 export const {

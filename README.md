@@ -23,7 +23,7 @@ constructor(@Inject('cache') private cache: Cache)
 
 |String|Usage|
 |------|-----|
-|`cache`|import { Cache } from "core/cache";<br/><br/>constructor(@Inject('cache') private cache: Cache)|
+|`cache`|import { Cache } from "src/core/cache";<br/><br/>constructor(@Inject('cache') private cache: Cache)|
 
 It can reduce cognitive load IMO
 
