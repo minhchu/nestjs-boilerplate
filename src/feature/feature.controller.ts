@@ -1,6 +1,6 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { BetterSQLite3Database } from 'drizzle-orm/better-sqlite3';
 import { Cache } from 'src/core/cache';
+import { DB } from 'src/core/database-drizzle';
 import { featuresTable } from './feature.schema';
 import { FeatureService } from './feature.service';
 
@@ -9,7 +9,7 @@ export class FeatureController {
   constructor(
     private readonly service: FeatureService,
     @Inject('cache') private readonly cache: Cache,
-    @Inject('db') private readonly db: BetterSQLite3Database,
+    @Inject('db') private readonly db: DB['sqlite'],
   ) {}
 
   @Get('/db')

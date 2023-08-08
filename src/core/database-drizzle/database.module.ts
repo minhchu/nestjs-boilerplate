@@ -5,7 +5,7 @@ import { DatabaseModule as DefaultDatabaseModule } from './database.default-modu
   imports: [
     DefaultDatabaseModule.register({
       global: true,
-      connection: 'sqlite',
+      connection: 'mysql',
     }),
   ],
   exports: [DefaultDatabaseModule],

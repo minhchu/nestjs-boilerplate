@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import cacheConfig from './config/cache';
 import databaseConfig from './config/database';
 import { CacheModule } from './core/cache';
-import { DatabaseModule } from './core/database';
+import { DatabaseModule } from './core/database-drizzle';
 import { FeatureModule } from './feature/feature.module';
 
 @Module({
