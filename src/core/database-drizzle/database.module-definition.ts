@@ -10,7 +10,10 @@ export const {
   OPTIONS_TYPE,
   ASYNC_OPTIONS_TYPE,
 } = new ConfigurableModuleBuilder<DatabaseModuleOptions>({ moduleName: 'DB' })
-  .setExtras({ global: false })
+  .setExtras({
+    global: false,
+    asyncConnection: '',
+  })
   .setClassMethodName('register')
   .setFactoryMethodName('create')
   .build();

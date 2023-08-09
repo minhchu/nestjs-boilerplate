@@ -1,3 +1,5 @@
 export type DatabaseModuleOptions = {
-  connection?: 'sqlite' | 'mysql' | 'pgsql';
+  connection?: string;
 };
+
+export const DEFAULT_DATABASE_TOKEN = 'db';

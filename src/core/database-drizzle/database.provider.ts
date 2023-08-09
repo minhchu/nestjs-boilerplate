@@ -1,14 +1,17 @@
 import { Provider } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DatabaseModuleOptions } from './database.interface';
+import {
+  DatabaseModuleOptions,
+  DEFAULT_DATABASE_TOKEN,
+} from './database.interface';
 import { MODULE_OPTIONS_TOKEN } from './database.module-definition';
 import * as path from 'path';
-import mysql from 'mysql2/promise';
+import * as mysql from 'mysql2/promise';
 import postgres from 'postgres';
 
 export function databaseProvider(): Provider {
   return {
-    provide: 'db',
+    provide: DEFAULT_DATABASE_TOKEN,
     useFactory: async (
       options: DatabaseModuleOptions,
       config: ConfigService,
@@ -22,15 +25,48 @@ export function databaseProvider(): Provider {
         throw new Error('Invalid configuartion for database connection');
       }
 
-      if (options.connection === 'sqlite' || defaultConnection === 'sqlite') {
+      if (defaultConnection === 'sqlite') {
         return await createSQLiteClient(config);
       }
 
-      if (options.connection === 'mysql' || defaultConnection === 'mysql') {
+      if (defaultConnection === 'mysql') {
         return await createMySQLClient(config);
       }
 
-      if (options.connection === 'pgsql' || defaultConnection === 'pgsql') {
+      if (defaultConnection === 'pgsql') {
+        return await createPgSQLClient(config);
+      }
+
+      return {};
+    },
+    inject: [MODULE_OPTIONS_TOKEN, ConfigService],
+  };
+}
+
+type Dialect = 'db:sqlite' | 'db:mysql' | 'db:pgsql' | string;
+
+export function dynamicDatabaseProvider(dialect: Dialect): Provider {
+  return {
+    provide: dialect,
+    useFactory: async (
+      options: DatabaseModuleOptions,
+      config: ConfigService,
+    ) => {
+      const connection = dialect.split(':')[1];
+
+      if (['sqlite', 'mysql', 'pgsql'].indexOf(connection) === -1) {
+        throw new Error('Invalid configuartion for database connection');
+      }
+
+      if (connection === 'sqlite') {
+        return await createSQLiteClient(config);
+      }
+
+      if (connection === 'mysql') {
+        return await createMySQLClient(config);
+      }
+
+      if (connection === 'pgsql') {
         return await createPgSQLClient(config);
       }
 
