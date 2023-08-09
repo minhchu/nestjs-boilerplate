@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule as DefaultDatabaseModule } from './database-core.module';
+import { DatabaseModule as DatabaseCoreModule } from './database-core.module';
 
 @Module({
   imports: [
-    DefaultDatabaseModule.register({
+    DatabaseCoreModule.register({
       global: true,
-      connection: 'db:mysql',
+      connection: 'db',
     }),
   ],
-  exports: [DefaultDatabaseModule],
+  exports: [DatabaseCoreModule],
 })
 export class DatabaseModule {}
