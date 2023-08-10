@@ -1,12 +1,13 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import cacheConfig from './config/cache';
-import databaseConfig from './config/database';
-import { CacheModule } from './core/cache';
-import { DatabaseModule } from './core/database-drizzle';
-import { FeatureModule } from './feature/feature.module';
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import appConfig from "./config/app";
+import cacheConfig from "./config/cache";
+import databaseConfig from "./config/database";
+import { CacheModule } from "./core/cache";
+import { DatabaseModule } from "./core/database-drizzle";
+import { FeatureModule } from "./feature/feature.module";
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { FeatureModule } from './feature/feature.module';
       isGlobal: true,
       cache: true,
       expandVariables: true,
-      load: [databaseConfig, cacheConfig],
+      load: [databaseConfig, cacheConfig, appConfig],
     }),
     CacheModule,
     DatabaseModule,
