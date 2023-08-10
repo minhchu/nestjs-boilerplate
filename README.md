@@ -21,11 +21,13 @@ import { Cache } from "src/core/cache";
 constructor(@Inject('cache') private cache: Cache)
 ```
 
+It can reduce cognitive load IMO
+
 |String|Usage|
 |------|-----|
 |`cache`|import { Cache } from "src/core/cache";<br/><br/>constructor(@Inject('cache') private cache: Cache)|
-
-It can reduce cognitive load IMO
+|`db`|import { DB } from "src/core/database-drizzle";<br/><br/>constructor(@Inject('db') private db: DB['sqlite'])|
+|`config`|import { ConfigService } from "@nestjs/config";<br/><br/>constructor(@Inject('config') private config: ConfigService)|
 
 ## Installation
 
