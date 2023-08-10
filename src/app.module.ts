@@ -6,6 +6,7 @@ import appConfig from "./config/app";
 import cacheConfig from "./config/cache";
 import databaseConfig from "./config/database";
 import { CacheModule } from "./core/cache";
+import { ConfigModule as CoreConfigModule } from "./core/config/config.module";
 import { DatabaseModule } from "./core/database-drizzle";
 import { FeatureModule } from "./feature/feature.module";
 
@@ -17,6 +18,7 @@ import { FeatureModule } from "./feature/feature.module";
       expandVariables: true,
       load: [databaseConfig, cacheConfig, appConfig],
     }),
+    CoreConfigModule.register(),
     CacheModule,
     DatabaseModule,
     FeatureModule,
