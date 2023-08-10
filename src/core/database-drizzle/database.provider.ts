@@ -1,5 +1,5 @@
 import { Provider } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
+import { Config } from "src/core/config";
 import {
   DatabaseModuleOptions,
   DEFAULT_DATABASE_TOKEN,
@@ -12,10 +12,7 @@ import postgres from "postgres";
 export function databaseProvider(): Provider {
   return {
     provide: DEFAULT_DATABASE_TOKEN,
-    useFactory: async (
-      options: DatabaseModuleOptions,
-      config: ConfigService
-    ) => {
+    useFactory: async (options: DatabaseModuleOptions, config: Config) => {
       const defaultConnection = config.get<string>("database.default");
 
       if (
@@ -39,7 +36,7 @@ export function databaseProvider(): Provider {
 
       return {};
     },
-    inject: [MODULE_OPTIONS_TOKEN, ConfigService],
+    inject: [MODULE_OPTIONS_TOKEN, "config"],
   };
 }
 
@@ -48,10 +45,7 @@ type Dialect = "db:sqlite" | "db:mysql" | "db:pgsql" | string;
 export function dynamicDatabaseProvider(dialect: Dialect): Provider {
   return {
     provide: dialect,
-    useFactory: async (
-      options: DatabaseModuleOptions,
-      config: ConfigService
-    ) => {
+    useFactory: async (options: DatabaseModuleOptions, config: Config) => {
       const connection = dialect.split(":")[1];
 
       if (["sqlite", "mysql", "pgsql"].indexOf(connection) === -1) {
@@ -72,11 +66,11 @@ export function dynamicDatabaseProvider(dialect: Dialect): Provider {
 
       return {};
     },
-    inject: [MODULE_OPTIONS_TOKEN, ConfigService],
+    inject: [MODULE_OPTIONS_TOKEN, "config"],
   };
 }
 
-async function createSQLiteClient(config: ConfigService) {
+async function createSQLiteClient(config: Config) {
   let dbName = config.get<string>("database.connections.sqlite.database");
 
   dbName = dbName.replace(".sqlite", "");
@@ -90,7 +84,7 @@ async function createSQLiteClient(config: ConfigService) {
   return drizzle(sqlite);
 }
 
-async function createMySQLClient(config: ConfigService) {
+async function createMySQLClient(config: Config) {
   const { drizzle } = await import("drizzle-orm/mysql2");
 
   const connectionString = config.get<string>(
@@ -121,7 +115,7 @@ async function createMySQLClient(config: ConfigService) {
   return drizzle(connection);
 }
 
-async function createPgSQLClient(config: ConfigService) {
+async function createPgSQLClient(config: Config) {
   const { drizzle } = await import("drizzle-orm/postgres-js");
 
   const connectionString = config.get<string>(

@@ -1,5 +1,5 @@
 import { Provider } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
+import { Config } from "src/core/config";
 import { caching } from "cache-manager";
 import { redisInsStore, redisStore } from "cache-manager-ioredis-yet";
 import Redis, { RedisOptions } from "ioredis";
@@ -8,7 +8,7 @@ import { CacheModuleOptions, CACHE_OPTIONS } from "./cache.interface";
 export function cacheProvider(): Provider {
   return {
     provide: "cache",
-    useFactory: async (options: CacheModuleOptions, config: ConfigService) => {
+    useFactory: async (options: CacheModuleOptions, config: Config) => {
       const defaultCacheDriver = config.get<string>("cache.default");
 
       if (defaultCacheDriver === "memory") {
@@ -39,6 +39,6 @@ export function cacheProvider(): Provider {
         return await caching(redisStore, redisConfig);
       }
     },
-    inject: [CACHE_OPTIONS, ConfigService],
+    inject: [CACHE_OPTIONS, "config"],
   };
 }
