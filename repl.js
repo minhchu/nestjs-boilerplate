@@ -15,8 +15,8 @@ function teardown() {
 
 function setup() {
   const core = require('@nestjs/core');
-  const app = require('./dist/src/app.module.js');
-  core.NestFactory.create(app.AppModule, { logger: false }).then((a) => {
+  const module = require('./dist/src/app.module.js');
+  core.NestFactory.create(module.AppModule, { logger: false }).then((a) => {
     app = a;
 
     loop.context.app = app;
@@ -30,3 +30,10 @@ setTimeout(function () {
 loop.on('exit', function () {
   teardown();
 });
+
+loop.defineCommand('cl', { 
+  help: 'Clear screen',
+  action: function() { 
+    process.stdout.write('\033c');
+  }
+})

@@ -1,5 +1,5 @@
-import { ConfigurableModuleBuilder } from '@nestjs/common';
-import { DatabaseModuleOptions } from './database.interface';
+import { ConfigurableModuleBuilder } from "@nestjs/common";
+import { DatabaseModuleOptions } from "./database.interface";
 
 /**
  * @see [DynamicModule](https://docs.nestjs.com/fundamentals/dynamic-modules#configurable-module-builder)
@@ -9,11 +9,11 @@ export const {
   MODULE_OPTIONS_TOKEN,
   OPTIONS_TYPE,
   ASYNC_OPTIONS_TYPE,
-} = new ConfigurableModuleBuilder<DatabaseModuleOptions>({ moduleName: 'DB' })
+} = new ConfigurableModuleBuilder<DatabaseModuleOptions>({ moduleName: "DB" })
   .setExtras({
     global: false,
-    asyncConnection: '',
+    asyncConnection: "",
   })
-  .setClassMethodName('register')
-  .setFactoryMethodName('create')
+  .setClassMethodName("register")
+  .setFactoryMethodName("create")
   .build();

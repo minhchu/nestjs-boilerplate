@@ -6,4 +6,4 @@ export type CacheModuleOptions = {
   ttl?: number;
 };
 
-export const CACHE_OPTIONS = 'CACHE_OPTIONS';
+export const CACHE_OPTIONS = "CACHE_OPTIONS";

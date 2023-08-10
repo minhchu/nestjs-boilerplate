@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
-import { DEFAULT_DATABASE_TOKEN } from './database.interface';
+import { Module } from "@nestjs/common";
+import { DEFAULT_DATABASE_TOKEN } from "./database.interface";
 import {
   ConfigurableModuleClass,
   OPTIONS_TYPE,
-} from './database.module-definition';
-import { databaseProvider, dynamicDatabaseProvider } from './database.provider';
+} from "./database.module-definition";
+import { databaseProvider, dynamicDatabaseProvider } from "./database.provider";
 
 @Module({})
 export class DatabaseModule extends ConfigurableModuleClass {
@@ -16,11 +16,11 @@ export class DatabaseModule extends ConfigurableModuleClass {
     const connection = options.connection;
 
     if (connection) {
-      const parts = connection.split(':');
+      const parts = connection.split(":");
 
       if (
         parts.length >= 2 &&
-        ['sqlite', 'mysql', 'pgsql'].indexOf(parts[1]) !== -1
+        ["sqlite", "mysql", "pgsql"].indexOf(parts[1]) !== -1
       ) {
         provider = dynamicDatabaseProvider(connection);
       }

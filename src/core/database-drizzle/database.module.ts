@@ -1,11 +1,11 @@
-import { Module } from '@nestjs/common';
-import { DatabaseModule as DatabaseCoreModule } from './database-core.module';
+import { Module } from "@nestjs/common";
+import { DatabaseModule as DatabaseCoreModule } from "./database-core.module";
 
 @Module({
   imports: [
     DatabaseCoreModule.register({
       global: true,
-      connection: 'db',
+      connection: "db",
     }),
   ],
   exports: [DatabaseCoreModule],
