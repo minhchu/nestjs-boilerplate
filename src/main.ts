@@ -17,6 +17,8 @@ async function bootstrap() {
 
   app.setViewEngine("hbs");
 
+  app.enableCors();
+
   await app.listen(config.get("app.port"));
 }
 
