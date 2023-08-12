@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { UserService } from "@/core/user-drizzle";
 import { JwtService } from "@nestjs/jwt";
-import { User } from "../user-drizzle/schemas/users.schema";
 
 @Injectable()
 export class AuthService {
@@ -12,8 +11,6 @@ export class AuthService {
 
   async validate(email: string, password: string) {
     const user = this.userService.findOne(email);
-
-    console.log(email, password);
 
     if (!user) {
       return null;
