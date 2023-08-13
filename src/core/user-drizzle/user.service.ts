@@ -7,7 +7,7 @@ import { User, users } from "./schemas/users.schema";
 export class UserService {
   constructor(@Inject("db") private db: DB["sqlite"]) {}
 
-  findOne(email: string): User {
+  async findOne(email: string): Promise<User> {
     const result = this.db
       .select()
       .from(users)
@@ -18,11 +18,11 @@ export class UserService {
     return result;
   }
 
-  all() {
+  async all() {
     return this.db.select().from(users).all();
   }
 
-  create({ name, email, password }) {
+  async create({ name, email, password }) {
     return this.db.insert(users).values({ name, email, password }).run();
   }
 }

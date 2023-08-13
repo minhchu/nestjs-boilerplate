@@ -10,7 +10,7 @@ export class AuthService {
   ) {}
 
   async validate(email: string, password: string) {
-    const user = this.userService.findOne(email);
+    const user = await this.userService.findOne(email);
 
     if (!user) {
       return null;
