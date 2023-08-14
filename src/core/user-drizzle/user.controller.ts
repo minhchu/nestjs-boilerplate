@@ -7,6 +7,6 @@ export class UserController {
 
   @Get("/user")
   index() {
-    return this.userService.findOne("aaaaa");
+    // return this.userService.findOne("aaaaa");
   }
 }

@@ -51,7 +51,9 @@ It can reduce cognitive load IMO
 
 ```bash
 $ pnpm install
+$ cp .env.example .env
 ```
+Then update your `APP_KEY` in `.env`
 
 ## Running the app
 
@@ -66,3 +68,12 @@ $ pnpm run start:dev
 $ pnpm run start:prod
 ```
 
+## TODO 
+
+- Mikro-ORM
+- Prisma (?)
+- Nodemailer
+- BullMQ
+- Zod validation
+- Refresh token
+- Rate limiter
