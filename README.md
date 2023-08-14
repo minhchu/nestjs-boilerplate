@@ -42,10 +42,10 @@ It can reduce cognitive load IMO
 |String|Usage|
 |------|-----|
 |`cache`|import { Cache } from "src/core/cache";<br/><br/>constructor(@Inject('cache') private cache: Cache)|
-|`db:sqlite`|import { DB } from "src/core/database-drizzle";<br/><br/>constructor(@Inject('db') private db: DB['sqlite'])|
-|`db:mysql`|import { DB } from "src/core/database-drizzle";<br/><br/>constructor(@Inject('db') private db: DB['mysql'])|
-|`db:pgsql`|import { DB } from "src/core/database-drizzle";<br/><br/>constructor(@Inject('db') private db: DB['pgsql'])|
-|`config`|import { ConfigService } from "@nestjs/config";<br/><br/>constructor(@Inject('config') private config: ConfigService)|
+|`db:sqlite`|import { DB } from "src/core/database-drizzle";<br/><br/>constructor(@Inject('db:sqlite') private db: DB['sqlite'])|
+|`db:mysql`|import { DB } from "src/core/database-drizzle";<br/><br/>constructor(@Inject('db:mysql') private db: DB['mysql'])|
+|`db:pgsql`|import { DB } from "src/core/database-drizzle";<br/><br/>constructor(@Inject('db:pgsql') private db: DB['pgsql'])|
+|`config`|import { Config } from "src/core/config";<br/><br/>constructor(@Inject('config') private config: Config)|
 
 ## Installation
 
