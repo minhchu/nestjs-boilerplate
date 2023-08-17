@@ -77,3 +77,6 @@ $ pnpm run start:prod
 - Zod validation
 - Refresh token
 - Rate limiter
+- Filesystem (local + s3)
+- GraphQL (?)
+- Logging (pino ?)
