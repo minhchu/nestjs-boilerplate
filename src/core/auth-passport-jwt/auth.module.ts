@@ -1,6 +1,6 @@
 import { Config } from "@/core/config";
-import { UserModule } from "@/core/user-drizzle/user.module";
-// import { UserModule } from "@/core/user-mikro/user.module";
+// import { UserModule } from "@/core/user-drizzle/user.module";
+import { UserModule } from "@/core/user-mikro/user.module";
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";

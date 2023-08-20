@@ -1,4 +1,3 @@
-import { Authenticable } from "@/core/contracts/auth/authenticable";
 import {
   IUserProvider,
   UserProvider,
@@ -14,7 +13,7 @@ export class AuthService {
   ) {}
 
   async validate(email: string, password: string) {
-    const user = await this.userService.retrieveByCredentials<Authenticable>({
+    const user = await this.userService.retrieveByCredentials({
       email,
       password,
     });

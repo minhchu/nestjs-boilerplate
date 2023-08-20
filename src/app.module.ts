@@ -1,3 +1,4 @@
+import { MikroOrmModule } from "@mikro-orm/nestjs";
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { AppController } from "./app.controller";
@@ -7,7 +8,7 @@ import cacheConfig from "./config/cache";
 import databaseConfig from "./config/database";
 import { AuthModule } from "./core/auth-passport-jwt/auth.module";
 import { CacheModule } from "./core/cache";
-import { ConfigModule as CoreConfigModule } from "./core/config";
+import { Config, ConfigModule as CoreConfigModule } from "./core/config";
 import { DatabaseModule } from "./core/database-drizzle";
 import { UserModule } from "./core/user-drizzle/user.module";
 import { FeatureModule } from "./feature/feature.module";
@@ -21,6 +22,16 @@ import { FeatureModule } from "./feature/feature.module";
       load: [databaseConfig, cacheConfig, appConfig],
     }),
     CoreConfigModule.register(),
+    MikroOrmModule.forRootAsync({
+      useFactory: async (config: Config) => {
+        return {
+          autoLoadEntities: true,
+          dbName: "storage/nestjs.sqlite",
+          type: "sqlite",
+        };
+      },
+      inject: ["config"],
+    }),
     CacheModule,
     DatabaseModule,
     FeatureModule,
